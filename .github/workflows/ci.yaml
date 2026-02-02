@@ -18,7 +18,7 @@ jobs:
 
       - name: Install Pylint
         run: |
-          python -m install pip --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pylint
 
