@@ -23,7 +23,7 @@ jobs:
           pip install pylint
 
       - name: Run Pylint
-        run: pylint --error-only app.py
+        run: pylint --errors-only app.py
 
 
       - name: Build Docker images
