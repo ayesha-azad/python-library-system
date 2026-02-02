@@ -1,0 +1,44 @@
+services:
+
+  mysql_lms:
+    image: mysql:8.0 
+    container_name: mysql_lms 
+    ports: 
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: lms
+    volumes:
+      - library-data:/var/lib/mysql
+      - ./db/lms.sql:/docker-entrypoint-initdb.d/lms.sql
+    networks: 
+      - library-net 
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s 
+      timeout: 5s 
+      retries: 10
+
+  flask_lms:
+    build: 
+      context: . 
+    container_name: flask_lms 
+    ports: 
+      - "4010:4010"
+    networks:
+      - library-net 
+    environment:
+      MYSQL_HOST: mysql_lms
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: lms
+    depends_on:
+      mysql_lms: 
+        condition: service_healthy 
+
+volumes:
+  library-data:
+
+networks: 
+  library-net:
+

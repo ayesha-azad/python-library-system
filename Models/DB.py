@@ -1,13 +1,14 @@
 from flaskext.mysql import MySQL
 from pymysql.cursors import DictCursor
+import os
 
 
 class DB(object):
 	"""Initialize mysql database """
-	host = "localhost"
-	user = "root"
-	password = ""
-	db = "lms"
+	host = os.getenv("MYSQL_HOST", "localhost")
+	user = os.getenv("MYSQL_USER", "root")
+	password = os.getenv("MYSQL_PASSWORD", "")
+	db = os.getenv("MYSQL_DATABASE", "lms")
 	table = ""
 
 	def __init__(self, app):

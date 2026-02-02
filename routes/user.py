@@ -1,12 +1,12 @@
 from flask import Blueprint, g, escape, session, redirect, render_template, request, jsonify, Response, flash
-from app import DAO
+from Models.extensions import dao
 from Misc.functions import *
 
 from Controllers.UserManager import UserManager
 
 user_view = Blueprint('user_routes', __name__, template_folder='/templates')
 
-user_manager = UserManager(DAO)
+user_manager = UserManager(dao)
 
 @user_view.route('/', methods=['GET'])
 def home():

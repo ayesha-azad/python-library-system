@@ -1,13 +1,13 @@
 from flask import Blueprint, g, escape, session, redirect, render_template, request, jsonify, Response
-from app import DAO
+from Models.extensions import dao
 
 from Controllers.UserManager import UserManager
 from Controllers.BookManager import BookManager
 
 book_view = Blueprint('book_routes', __name__, template_folder='/templates')
 
-book_manager = BookManager(DAO)
-user_manager = UserManager(DAO)
+book_manager = BookManager(dao)
+user_manager = UserManager(dao)
 
 @book_view.route('/books/', defaults={'id': None})
 @book_view.route('/books/<int:id>')
