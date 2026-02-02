@@ -17,9 +17,7 @@ jobs:
           cache: pip
 
       - name: Installing Pylint 
-        run: |
-          python -m pip install --upgrade pip
-          python install pylint
+        run: python install pylint
 
       - name: Checking Code
         run: pylint ../../app.py
