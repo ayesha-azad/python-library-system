@@ -18,11 +18,14 @@ jobs:
 
       - name: Installing Pylint 
         run: |
-          python install pip
+          python -m pip install --upgrade pip
           python install pylint
 
       - name: Checking Code
         run: pylint ../../app.py
 
+      - name: Docker build 
+        run: docker compose build 
+        
       - name: Docker Compose Run
-        run: docker compose up
+        run: docker compose up -d
