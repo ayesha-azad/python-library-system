@@ -1,30 +1,31 @@
 name: CI for Library Management System
 
-on: 
-  push
+on:
+  push:
 
 jobs:
   docker-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: 3.12
 
-      - name: Installing Pylint 
+      - name: Install Pylint
         run: |
-          python -m install pip --upgrade pip
+          python -m pip install --upgrade pip
           pip install pylint
 
-      - name: Checking Code
-        run: pylint ../../app.py
+      - name: Run Pylint
+        run: pylint app.py
 
-      - name: Docker build 
-        run: docker compose build 
-        
-      - name: Docker Compose Run
+      - name: Build Docker images
+        run: docker compose build
+
+      - name: Run Docker Compose
         run: docker compose up -d
