@@ -18,7 +18,7 @@ jobs:
       - name: Installing Pylint 
         run: |
           python -m install pip --upgrade pip
-          python install pylint
+          pip install pylint
 
       - name: Checking Code
         run: pylint ../../app.py
